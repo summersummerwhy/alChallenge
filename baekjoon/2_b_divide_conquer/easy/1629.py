@@ -3,29 +3,22 @@ import sys
 input = sys.stdin.readline
 
 
+def pow_recursive(a, b, c):
+    if b == 1:
+        return a % c
+    else: 
+        half = pow_recursive(a, b//2, c)
+        result = half * half % c
+        if b % 2 == 0:
+            return result
+        else:
+            return (result * (a % c)) % c
+
+
 def run_program():
     A, B, C = map(int, input().strip().split())
+    print(pow_recursive(A, B, C))
 
-    num_now = 1
-    # 제곱한 후 패턴 찾기
-    pattern = []
-
-    while True:
-        num_now *= A % C
-        num_now %= C
-        if pattern.count(num_now) != 0:
-            break
-        pattern.append(num_now)
-
-    # 패턴 길이 확보
-    pattern_len = len(pattern)- pattern.index(num_now)
-    result = num_now
-
-    for _ in range(B % pattern_len):
-        result *= A % C
-        result %= C
-
-    print(result)
 
 
     
